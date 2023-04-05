@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>My Projects</title>
+    <script
+      src="https://kit.fontawesome.com/e0b1239b82.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <link rel="stylesheet" href="../css/projects.css" />
+    <link rel="stylesheet" href="../css/game-of-life.css" />
+    <link rel="stylesheet" href="../css/video-player.css" />
+  </head>
+
+  <body>
+    <nav class="top-bar">
+      <div id="top-left">
+        <a href="./index.html">Home</a>
+        <a href="./about-me.html">About me</a>
+      </div>
+
+      <div id="top-center">
+        <a href="#">
+          <i>
+            <i class="fa-brands fa-github-alt"></i>
+          </i>
+        </a>
+        <a href="#">
+          <i class="fa-brands fa-linkedin-in"> </i>
+        </a>
+      </div>
+
+      <div id="top-right"></div>
+    </nav>
+
+    <div id="main">
+      <article id="game-of-life-art" data-status="right" data-index="0">
+        <table id="game_of_life"></table>
+        <div id="description">
+          <h3>Rules:</h3>
+          <div class="rules">
+            <p>
+              Any live cell with fewer than two live neighbours dies, as if by
+              underpopulation.
+            </p>
+            <br />
+            <p>
+              Any live cell with two or three live neighbours lives on to the
+              next generation.
+            </p>
+            <br />
+            <p>
+              Any live cell with more than three live neighbours dies, as if by
+              overpopulation.
+            </p>
+            <br />
+            <p>
+              Any dead cell with exactly three live neighbours becomes a live
+              cell, as if by reproduction.
+            </p>
+          </div>
+        </div>
+
+        <div id="bottom-left">
+          <input
+            class="min-range"
+            type="range"
+            min="15"
+            max="60"
+            value="1"
+            id="speed-bar"
+          />
+          <div id="controls">
+            <button id="stop" class="control_buttons">
+              <i class="fa-solid fa-play"></i>
+            </button>
+
+            <button id="randomize" class="control_buttons">
+              <i class="fa-solid fa-shuffle"></i>
+            </button>
+
+            <button id="clear" class="control_buttons" status="on">
+              CLEAR
+            </button>
+          </div>
+        </div>
+
+        <div class="nav-tab">
+          <div id="left-arrow" class="arrow">
+            <i class="fa-solid fa-arrow-left"></i>
+          </div>
+          <div id="right-arrow" class="arrow">
+            <i class="fa-solid fa-arrow-right"></i>
+          </div>
+        </div>
+      </article>
+
+      <article id="video-shuffeler-art" data-status="active" data-index="1">
+        <video-shuffeler
+          src="/html/in.mp4"
+          id="video-shuffeler-player"
+        ></video-shuffeler>
+
+        <div class="right-text"></div>
+        <div style="width: 100%">
+          <div
+            style="
+              background-color: blue;
+              height: 10%;
+              display: flex;
+              flex-direction: row;
+            "
+          >
+            <input
+              class="min-range"
+              type="range"
+              min="1"
+              max="100"
+              value="0"
+              id="xtriangle"
+            />
+            <input
+              class="min-range"
+              type="range"
+              min="1"
+              max="100"
+              value="0"
+              id="ytriangle"
+            />
+          </div>
+          <div id="player-controls">
+            <button id="film">
+              <i class="fa-solid fa-download"></i>
+              
+            </button>
+            <button id="stop-video" class="control_buttons">
+              <i class="fa-solid fa-play"></i>
+            </button>
+
+            <div id="volume-control-div">
+              <div id="volume-title">VOLUME</div>
+              <input 
+                type="range"
+                min="0"
+                max="100"
+                value="30"
+                id="volume-range"
+              />
+            </div>
+
+            <div id="video-settings">
+              <div id="seed-container">
+                <input type="text" class="video-setting-input" id="seed" />
+                <input
+                  type="button"
+                  class="video-setting-input-button"
+                  id="set-seed"
+                  value="&#9998;"
+                />
+              </div>
+              <div id="video-input">
+                <input
+                  type="text"
+                  class="video-setting-input"
+                  id="video-path"
+                />
+                <input
+                  type="button"
+                  class="video-setting-input-button"
+                  id="set-video-path"
+                  value="&#9998;"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="nav-tab">
+          <div id="left-arrow" class="arrow">
+            <i class="fa-solid fa-arrow-left"></i>
+          </div>
+          <div id="right-arrow" class="arrow">
+            <i class="fa-solid fa-arrow-right"></i>
+          </div>
+        </div>
+      </article>
+
+      <article data-status="left" data-index="2">
+        <div class="display" style="background-color: blue"></div>
+        <div class="bottom-text"></div>
+        <div class="right-text"></div>
+        <div class="nav-tab">
+          <div id="left-arrow" class="arrow">
+            <i class="fa-solid fa-arrow-left"></i>
+          </div>
+          <div id="right-arrow" class="arrow">
+            <i class="fa-solid fa-arrow-right"></i>
+          </div>
+        </div>
+      </article>
+      <article data-status="left" data-index="3">
+        <div class="display" style="background-color: magenta"></div>
+        <div class="bottom-text"></div>
+        <div class="right-text"></div>
+        <div class="nav-tab">
+          <div id="left-arrow" class="arrow">
+            <i class="fa-solid fa-arrow-left"></i>
+          </div>
+          <div id="right-arrow" class="arrow">
+            <i class="fa-solid fa-arrow-right"></i>
+          </div>
+        </div>
+      </article>
+    </div>
+  </body>
+
+  <script src="../js/game-of-life-art.js"></script>
+  <script src="../js/projects.js"></script>
+  <script src="/js/player-art.js"></script>
+  <script type="module" src="../js/player/player.js"></script>
+</html>

@@ -1,0 +1,137 @@
+:root {
+    --primary-color: #060a1a;
+    --opaqueprimary-color: rgba(6, 10, 26, 0.8);
+    --secondary-color: white;
+    --opacesecondary-color: rgba(255, 255, 255, 0.8);
+    --ternary-color: #d42dc8;
+    --border-color: white;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Space Grotesk', sans-serif;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Hide scrollbars */
+}
+
+#top-left {
+    width: 45%;
+}
+
+#top-center{
+    width: 25%;   
+    justify-content: center;
+    font-size: 1.5rem;
+}
+#top-right {
+    flex-grow: 1;
+}
+.top-bar {
+    background-color: var(--primary-color);
+    display: flex;
+    width: 100%;
+    height: fit-content;
+    z-index: 3;
+}
+
+.top-bar>div {
+    display: flex;
+    height: 100%;
+}
+
+.top-bar>div>a {
+    padding: .7rem;
+    margin: .7rem;
+    text-decoration: none;
+    color: var(--secondary-color);
+}
+.top-bar>div>a:hover {
+    color: var(--opacesecondary-color);
+}
+
+
+#main {
+    position: relative;
+    background-color: var(--primary-color);
+    flex-grow: 1;
+    width: 100%;
+}
+
+#main>article {
+    position: absolute;
+    display: grid;
+    height: 100%;
+    width: 100%;
+    grid-template-columns: 3fr 1fr;
+    grid-template-rows: 2fr 1fr;
+    transition: transform 1.5s;
+    left: 0px;
+    top: 0px;
+}
+#main > article[data-status="inactive"] {
+    transform: translate(-100%);
+}
+
+#main > article[data-status="left"] {
+    transform: translateX(-100%);
+}
+
+#main > article[data-status="right"] {
+
+    transform: translateX(100%);
+}
+
+#main > article[data-status="active"] {
+    transform: translateX(0);
+}
+#main>article>div {
+    height: 100%;
+}
+
+.display {
+    background-color: var(--primary-color);
+
+}
+
+.bottom-text {
+    background-color: var(--secondary-color);
+
+}
+
+.right-text {
+    background-color: var(--secondary-color);
+
+}
+
+.nav-tab {
+    background-color: var(--secondary-color);
+    display: flex;
+    width:  100%;
+    height: 100%;
+    background-color: var(--primary-color);
+}
+
+.arrow{
+    background-color: var(--secondary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: x-large;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+}
+
+
+.arrow:hover{
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    cursor: pointer;
+    transition: 0.3s;
+}

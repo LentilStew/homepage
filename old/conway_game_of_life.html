@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/e0b1239b82.js" crossorigin="anonymous"></script>
+    <style>
+        .top_button {
+            width: 100%;
+            color: #0e0f12;
+            border: 0;
+            background-color: white;
+            border-bottom: 1px #0e0f12 solid;
+        }
+
+        #left {
+            color: white;
+            width: 35%;
+            height: 100vh;
+            float: left;
+        }
+
+        #right {
+            width: 65%;
+            float: right;
+        }
+
+        #game_of_life {
+            color: white;
+            width: 100%;
+            height: 90vh;
+
+        }
+
+        .control_buttons {
+            width: fit-content;
+            padding-left: 2%;
+            padding-right: 2%;
+            margin-left: 2.5%;
+            margin-right: 2.5%;
+
+            background-color: white;
+            border: 0;
+        }
+
+        #github {
+            position: absolute;
+            top: 90vh;
+            left: 5vw;
+            /*font size*/
+            font-size: 1.5vw;
+            text-decoration: none;
+            color: #0e0f12;
+            background-color: white;
+            width: fit-content;
+            padding: 5px;
+        }
+
+        #github:hover {
+            color: white;
+            background-color: #0e0f12;
+            /*hover transition*/
+            transition: 0.1s;
+        }
+
+        #description{
+            color: #0e0f12;
+            width: 100%;
+            height: 10vh;
+            background-color: white;
+            
+        }
+        /* From 0 to 992px Device Width */
+        @media (max-width: 992px) {
+
+            #right {
+                display: none;
+            }
+
+            #left {
+                width: 100%;
+            }
+
+            #github{
+                right: 5vw;
+                left: unset;
+             }
+
+            #frame_counter{
+                display: none;
+            }
+
+        
+        }
+    </style>
+</head>
+
+<body style="background-color: #0e0f12;">
+
+
+    <div id="left">
+        <button class="top_button" onclick="window.location.href = 'index.html';">
+            <i class="fa-solid fa-arrow-left"></i> BACK TO MAIN PAGE
+        </button>
+
+        <div id="description" style="padding: 0 10% 0 10%; overflow-y: auto;   height: 80%;">
+
+            <h3 style=" margin-top: 5%;">
+                John Conway's Game of Life
+            </h3>
+            <br>
+            <p>
+                Conway's Game of Life rules are very simple:
+            </p>
+            <ol>
+                <li>Any live cell with fewer than two live neighbours dies, as if by underpopulation.</li>
+                <li>Any live cell with two or three live neighbours lives on to the next generation.</li>
+                <li>Any live cell with more than three live neighbours dies, as if by overpopulation.</li>
+                <li>Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.</li>
+            </ol>
+
+            <p>
+                Technologies used:
+            </p>
+            <p>
+                My implementation of the game is rendered with SDL2 and C.
+            </p>
+            <h3 id="frame_counter">
+                FPS: <span id="fps">0</span>
+            </h3>
+        </div>
+        <a id="github" href="https://github.com/LentilStew/sdl_game_of_life"><i class="fa-brands fa-github"></i>
+            LentilStew/sdl_game_of_life</a>
+    
+    </div>
+
+    <div id="right">
+
+        <table id="game_of_life"></table>
+
+        <div style="width: 100%;     display: flex;
+        align-items: center;">
+
+            <input type="range" class="form-range control_buttons" min="0" max="100" step="00.05" id="velocity"
+                style="width: 50%;">
+
+            <button id="stop" class="control_buttons">Start</button>
+
+            <button id="randomize" class="control_buttons">Randomize</button>
+
+            <button id="clear" class="control_buttons">clear</button>
+        </div>
+
+    </div>
+
+</body>
+<script>
+
+    var off = "#0e0f12"
+    var on = "white"
+    var width = 50;
+    var height = 35;
+    var start = true;
+    var interval = 50;
+
+    document.getElementById("velocity").value = interval
+
+    document.getElementById("randomize").addEventListener("click", () => {
+        randomize()
+        draw_game()
+    })
+
+    document.getElementById("velocity").addEventListener("input", () => {
+        interval = document.getElementById("velocity").value;
+    })
+
+    document.getElementById("clear").addEventListener("click", () => {
+        clear()
+        draw_game()
+    })
+
+    //cells should occupy the whole 
+    document.getElementById("game_of_life");
+    for (var i = 0; i < height; i++) {
+        var row = document.createElement("tr");
+        for (var j = 0; j < width; j++) {
+            var cell = document.createElement("td");
+            cell.style.backgroundColor = off;
+            cell.className = "cell"
+
+            cell.id = i + "_" + j;
+            row.appendChild(cell);
+        }
+        document.getElementById("game_of_life").appendChild(row);
+    }
+
+    document.querySelectorAll(".cell").forEach(item => {
+        item.addEventListener("click", event => {
+
+            var id = item.id.split("_");
+            var x = parseInt(id[0]);
+            var y = parseInt(id[1]);
+            if (game[x][y] == 0) {
+                game[x][y] = 1;
+            } else {
+                game[x][y] = 0;
+            }
+            draw_game()
+
+        })
+    })
+
+    var game = new Array(height);
+    for (var i = 0; i < height; i++) {
+        game[i] = new Array(width);
+        for (var j = 0; j < width; j++) {
+            game[i][j] = 0;
+        }
+    }
+    var game_copy = new Array(height);
+    for (var i = 0; i < height; i++) {
+        game_copy[i] = new Array(width);
+        for (var j = 0; j < width; j++) {
+            game_copy[i][j] = 0;
+        }
+    }
+
+    var draw_game = function () {
+        for (var i = 0; i < height; i++) {
+            for (var j = 0; j < width; j++) {
+                if (game[i][j] == 1) {
+                    document.getElementById(i + "_" + j).style.backgroundColor = on;
+                } else {
+                    document.getElementById(i + "_" + j).style.backgroundColor = off;
+                }
+            }
+        }
+    }
+
+    var game_of_life = function (neighbors, on) {
+        if (on) {
+            if (neighbors < 2) {
+                return 0;
+            } else if (neighbors == 2 || neighbors == 3) {
+                return 1;
+            }
+            else {
+                return 0;
+            }
+        }
+        else {
+            if (neighbors == 3) {
+                return 1;
+            }
+            else {
+                return 0;
+            }
+        }
+    }
+
+    fps = 0;
+    //every second restart fps
+    setInterval(() => {
+        document.getElementById("fps").innerHTML = fps;
+        fps = 0;
+    }, 1000);
+
+    var tick = function () {
+
+        if (start) {
+            setTimeout(tick, interval);
+            return;
+        }
+        fps++;
+
+        for (var i = 0; i < height; i++) {
+            for (var j = 0; j < width; j++) {
+                var neighbors = 0;
+                if (i > 0 && j > 0 && game[i - 1][j - 1] == 1) {
+                    neighbors++;
+                }
+                if (i > 0 && game[i - 1][j] == 1) {
+                    neighbors++;
+                }
+                if (i > 0 && j < width - 1 && game[i - 1][j + 1] == 1) {
+                    neighbors++;
+                }
+                if (j > 0 && game[i][j - 1] == 1) {
+                    neighbors++;
+                }
+                if (j < width - 1 && game[i][j + 1] == 1) {
+                    neighbors++;
+                }
+                if (i < height - 1 && j > 0 && game[i + 1][j - 1] == 1) {
+                    neighbors++;
+                }
+                if (i < height - 1 && game[i + 1][j] == 1) {
+                    neighbors++;
+                }
+                if (i < height - 1 && j < width - 1 && game[i + 1][j + 1] == 1) {
+                    neighbors++;
+                }
+
+                game_copy[i][j] = game_of_life(neighbors, game[i][j]);
+
+            }
+        }
+        for (var i = 0; i < height; i++) {
+            for (var j = 0; j < width; j++) {
+                game[i][j] = game_copy[i][j];
+                if (game[i][j] == 1) {
+                    document.getElementById(i + "_" + j).style.backgroundColor = on;
+                } else {
+                    document.getElementById(i + "_" + j).style.backgroundColor = off;
+                }
+            }
+        }
+
+        setTimeout(tick, interval);
+    }
+
+    toggle_button = () => {
+        console.log(document.getElementById("stop").innerHTML, "Stop")
+        if (document.getElementById("stop").innerHTML == "Stop") {
+            document.getElementById("stop").innerHTML = "Start"
+            start = true;
+        } else {
+            document.getElementById("stop").innerHTML = "Stop"
+            start = false;
+        }
+    }
+    document.getElementById("stop").addEventListener("click", toggle_button);
+    toggle_button()
+    function randomize() {
+        for (var i = 0; i < height; i++) {
+            for (var j = 0; j < width; j++) {
+                game[i][j] = Math.round(Math.random());
+            }
+        }
+    }
+
+    function clear() {
+        for (var i = 0; i < height; i++) {
+            for (var j = 0; j < width; j++) {
+                game[i][j] = 0;
+            }
+        }
+    }
+    //draw a glider gun
+
+    game[5][1] = 1;
+    game[5][2] = 1;
+    game[6][1] = 1;
+    game[6][2] = 1;
+    game[5][11] = 1;
+    game[6][11] = 1;
+    game[7][11] = 1;
+    game[4][12] = 1;
+    game[8][12] = 1;
+    game[3][13] = 1;
+    game[9][13] = 1;
+    game[3][14] = 1;
+    game[9][14] = 1;
+    game[6][15] = 1;
+    game[4][16] = 1;
+    game[8][16] = 1;
+    game[5][17] = 1;
+    game[6][17] = 1;
+    game[7][17] = 1;
+    game[6][18] = 1;
+    game[3][21] = 1;
+    game[4][21] = 1;
+    game[5][21] = 1;
+    game[3][22] = 1;
+    game[4][22] = 1;
+    game[5][22] = 1;
+    game[2][23] = 1;
+    game[6][23] = 1;
+    game[1][25] = 1;
+    game[2][25] = 1;
+    game[6][25] = 1;
+    game[7][25] = 1;
+    game[3][35] = 1;
+    game[3][36] = 1;
+    game[4][35] = 1;
+    game[4][36] = 1;
+
+    //randomize()
+    draw_game()
+    setTimeout(tick, interval);
+
+</script>
+
+</html>

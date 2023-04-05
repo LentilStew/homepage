@@ -1,0 +1,99 @@
+* {
+    box-sizing: border-box;
+}
+
+#game-of-life-art {
+    background-color: var(--primary-color);
+    grid-template-columns: 3fr 1fr !important;
+    grid-template-rows: 7fr 1fr !important;
+}
+
+#game-of-life-art>* {
+    z-index: 1;
+}
+
+#bottom-left {
+    display: flex;
+    flex-direction: column;
+}
+
+
+#speed-bar{
+    height: 0.5rem;
+    padding: 0;
+    margin: 0;
+}
+
+#description {
+    background-color: var(--secondary-color);
+    padding: 8% 8% 0% 8%;
+    padding-top: 0;
+    width: 100%;
+    height: 100% !important;
+    overflow-y: auto;
+}
+
+.rules {
+
+    background: var(--secondary-color);
+
+
+}
+
+.rules>p {
+    font-size: 1rem;
+    background: var(--primary-color);
+    color: white;
+    margin: 0;
+    padding: 1rem;
+    transition: 0.3s;
+    cursor: default;
+}
+
+#description>p:hover {
+    transition: 0.3s;
+
+}
+
+#game_of_life {
+    -moz-transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+    filter: blur(8px);
+
+    overflow: hidden;
+    border-spacing: 1;
+    transition: 1s;
+    z-index: 0 !important;
+    transition-delay: 7s;
+}
+
+#game_of_life:hover {
+    transition-delay: 0s;
+    -moz-transform: scale(1);
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    filter: blur(0px);
+}
+
+#controls {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+#controls>* {
+    font-family: 'Space Grotesk', sans-serif;
+    border: 0;
+    color: var(--primary-color);
+    width: 100%;
+    height: 100%;
+    background-color: var(--secondary-color);
+}
+
+#controls>:hover {
+    background-color: rgba(30, 36, 53, 0.16);
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}

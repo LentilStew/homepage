@@ -1,0 +1,136 @@
+#player-controls {
+  display: flex;
+  width: 100%;
+  height: 90%;
+}
+
+#player-controls > button {
+  font-family: "Space Grotesk", sans-serif;
+  border: 0;
+  width: 100%;
+  height: 100%;
+  color: var(--primary-color);
+  background-color: var(--secondary-color);
+}
+
+#player-controls > button:hover {
+  background-color: rgba(30, 36, 53, 0.16);
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#video-shuffeler-art {
+  grid-template-columns: 3fr 1fr !important;
+  grid-template-rows: 7fr 1fr !important;
+}
+
+#volume-control-div {
+  width: 100%;
+  height: 100%;
+}
+
+#video-shuffeler-player {
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  background-color: black;
+}
+
+.volume-settings {
+  padding-left: 1.5rem;
+  width: 100%;
+  text-align: left;
+  color: var(--secondary-color);
+  cursor: default;
+  margin: 0.5rem;
+  margin-bottom: 0.1rem;
+}
+
+#video-settings {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+#video-settings > div {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.video-setting-input {
+  width: 80%;
+  height: 100%;
+  border: 0;
+  color: var(--primary-color);
+  background-color: var(--secondary-color);
+}
+.video-setting-input:focus {
+  outline: none;
+}
+.video-setting-input-button {
+  width: 20%;
+  height: 100%;
+  border: 0;
+  color: var(--secondary-color);
+  background-color: var(--primary-color);
+  font-size: large;
+}
+
+.video-setting-input-button:hover {
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+  cursor: pointer;
+  transition: 0.3s;
+}
+#volume-title{
+  color: var(--secondary-color);;
+  width: 100%;
+  height: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#volume-range {
+  width: 100%;
+  height: 50%;
+}
+/* The slider itself */
+input[type="range"] {
+  -webkit-appearance: none; /* Override default CSS styles */
+  appearance: none;
+  width: 100%; /* Full-width */
+  height: 100%; /* Specified height */
+  outline: none; /* Remove outline */
+  background-color: var(--secondary-color);
+  margin: 0;
+  padding: 0;
+  z-index: 100;
+  border: var(--primary-color);
+}
+
+/* Mouse-over effects */
+input[type="range"] :hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 1rem; /* Set a specific slider handle width */
+  height: 1rem; /* Slider handle height */
+  background: black;
+  cursor: pointer; /* Cursor on hover */
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 1rem; /* Set a specific slider handle width */
+  height: 1rem; /* Slider handle height */
+  cursor: pointer; /* Cursor on hover */
+}
