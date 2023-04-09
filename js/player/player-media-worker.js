@@ -7,8 +7,8 @@ console.info(`Worker started`);
 // so we import it as an old-style script and use the dynamic import() to load
 // our modules below.
 
-importScripts('/js/player/third_party/mp4boxjs/mp4box.all.min.js');
-let videoImport = import('/js/player/lib/video_renderer.js');
+importScripts('./third_party/mp4boxjs/mp4box.all.min.js');
+let videoImport = import('./lib/video_renderer.js');
 
 let filename = null
 let canvas = null
