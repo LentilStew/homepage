@@ -1,6 +1,6 @@
 
 class videoShuffeler extends HTMLElement {
-
+  
   #width_in_squares = 1;
   #height_in_squares = 1;
   #seed = 0;
@@ -22,18 +22,18 @@ class videoShuffeler extends HTMLElement {
 
   `;
 
-    this.a = document.createElement('a');
-    this.a.style.display = 'none';
-    this._shadowRoot.appendChild(this.a)
+  this.a = document.createElement('a');
+  this.a.style.display = 'none';
+  this._shadowRoot.appendChild(this.a)
 
 
 
     this.mediaTimeUpdateInterval = null;
-
+    
     this.ChangeTriangles = this.ChangeTriangles.bind(this);
     this.Play = this.Play.bind(this);
     this.Pause = this.Pause.bind(this);
-
+    
     this.playing = false
     this.playReady = false
     this.recording = false
@@ -55,13 +55,13 @@ class videoShuffeler extends HTMLElement {
     });
   }
 
-  #UpdateWebGlSize() {
-    this.#mediaWorker.postMessage({
-      command: "updateWebGlSize",
-      client_width: this.clientWidth,
-      client_height: this.clientHeight,
-
-    });
+  #UpdateWebGlSize()
+  {
+    this.#mediaWorker.postMessage({command: "updateWebGlSize",
+    client_width:this.clientWidth,
+    client_height:this.clientHeight,
+  
+  });
 
   }
 
@@ -88,27 +88,14 @@ class videoShuffeler extends HTMLElement {
     this.style.overflow = "hidden"
 
     this.playReady = false
-
-
-
-
-
-    let video_src = this.getAttribute("src");
-    //if the path is not absolute make it absolute
-    if (video_src.length >= 1 && video_src[0] === ".") {
-      const currentPath = window.location.href.split('/').slice(0, -1).join('/');
-      video_src = new URL(video_src, currentPath).href;
-    }
-
-
-
+    const src = this.getAttribute("src");
     const offscreenCanvas = this.canvas.transferControlToOffscreen();
     const this_js_file_path = import.meta.url.split('/').slice(0, -1).join('/')
     this.#mediaWorker = new Worker("../js/player/player-media-worker.js");//TODO
     this.#mediaWorker.postMessage(
       {
         command: "initialize",
-        videoFile: video_src,
+        videoFile: src,
         canvas: offscreenCanvas,
       },
       [offscreenCanvas]

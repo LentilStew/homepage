@@ -45,25 +45,21 @@ async function initialize(data) {
   videoFile = data["videoFile"]
   canvas = data["canvas"]
   //inputs
-  console.log("1")
+
   let demuxerModule = await import('./mp4_pull_demuxer.js');
   videoDemuxer = new demuxerModule.MP4PullDemuxer(videoFile);
-  console.log("2")
 
   if (videoDemuxer == undefined) {
     console.log("invalid path")
   }
 
   videoReady = videoRenderer.initialize(videoDemuxer, canvas);
-  console.log("3")
 
   await Promise.all([videoReady]);
   console.log("initialize-done")
   postMessage({
     command: 'initialize-done'
   });
-  console.log("4")
-
 }
 
 let lastStopTime = 0;
