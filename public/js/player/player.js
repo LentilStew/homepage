@@ -103,8 +103,7 @@ class videoShuffeler extends HTMLElement {
 
 
     const offscreenCanvas = this.canvas.transferControlToOffscreen();
-    const this_js_file_path = import.meta.url.split('/').slice(0, -1).join('/')
-    this.#mediaWorker = new Worker("../js/player/player-media-worker.js");//TODO
+    this.#mediaWorker = new Worker(window.location.origin + "/js/player/player-media-worker.js");//TODO
     this.#mediaWorker.postMessage(
       {
         command: "initialize",
