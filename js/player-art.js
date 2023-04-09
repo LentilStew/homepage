@@ -8,22 +8,19 @@ toggleButton.addEventListener("click", () => {
 
 
     if (player.playing) {
-        if (!player.pause()) { return }
+        if (!player.Pause()) { return }
         toggleButton.innerHTML = '<i class="fa-solid fa-play"></i>';
         toggleButton.status = "off"
         start = true;
     } else {
 
-        if (!player.play()) { return }
+        if (!player.Play()) { return }
 
         toggleButton.innerHTML = '<i class="fa-solid fa-pause"></i>';
         toggleButton.status = "on"
         start = false;
     }
 })
-
-const volume = document.getElementById("volume-range")
-volume.addEventListener("change", (e) => { player.handleVolumeChange(volume.value / 100) })
 
 const xtriangle = document.getElementById("xtriangle")
 const ytriangle = document.getElementById("ytriangle")
@@ -33,7 +30,7 @@ function handleScrollerChange() {
     const y = Math.ceil(ytriangle.value / 10);
 
     console.log(x, y)
-    player.handleScrollerChange(x, y)
+    player.ChangeTriangles(x, y)
 
 }
 
@@ -42,46 +39,53 @@ ytriangle.addEventListener("change", handleScrollerChange)
 
 
 
-const setSeed = document.getElementById("set-seed")
-const setPath = document.getElementById("set-video-path")
+const setSeed = document.getElementById("seed-button")
+const setPath = document.getElementById("dropdown-button-video-selector")
 
 const seed = document.getElementById("seed")
-const path = document.getElementById("video-path")
+const path = document.getElementById("selected-video-title")
 
 setSeed.addEventListener("click", () => {
-    player.handleSeedChange(seed.value)
+    player.ChangeSeed(seed.value)
 })
 
+let curr_video_index = 0
+inputs = [
+    {name:"csgo clip", path:"/html/in.mp4"},
+    {name:"csgo clip", path:"/html/in.mp4"},
+    {name:"csgo clip", path:"/html/in.mp4"},
+    
+]
 setPath.addEventListener("click", () => {
-    player.handlePathChange(path.value)
+    curr_video_index += 1
+    curr_video = inputs[curr_video_index % inputs.length]
+    path.textContent = curr_video.name
+    player.ChangePath(curr_video.path)
 })
-
-
-
-
 
 const video_shuffeler_art = document.getElementById("video-shuffeler-art")
 
 const video_shuffeler_observer = new MutationObserver(function (mutations) {
-    console.log(mutations)
     for (let mutation of mutations) {
         if (!mutation.attributeName === 'data-status')
             if (mutation.target.getAttribute('data-status') == 'active') { break }
 
-        player.pause()
+        player.Pause()
         toggleButton.innerHTML = '<i class="fa-solid fa-play"></i>';
         toggleButton.status = "off"
         start = true;
         break
     };
 });
+
 video_shuffeler_observer.observe(video_shuffeler_art, { attributes: true })
 
 
 const downloadButton = document.getElementById("film");
 
 downloadButton.addEventListener("click", () => {
-    if (player.recording) { player.stopRecording() }
-    else { player.record() }
+    if (player.recording) { player.StopRecording() }
+    else { player.StartRecording() }
 
 })
+

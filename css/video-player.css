@@ -3,21 +3,25 @@
   width: 100%;
   height: 90%;
 }
-
-#player-controls > button {
-  font-family: "Space Grotesk", sans-serif;
+body {
+  font-family: monospace;
+}
+.player-button {
   border: 0;
   width: 100%;
   height: 100%;
   color: var(--primary-color);
   background-color: var(--secondary-color);
 }
-
-#player-controls > button:hover {
+.player-button:hover {
   background-color: rgba(30, 36, 53, 0.16);
   color: white;
   cursor: pointer;
   transition: 0.3s;
+}
+
+#film {
+  width: 25% !important;
 }
 
 #video-shuffeler-art {
@@ -54,7 +58,9 @@
   height: 100%;
 }
 
-#video-settings > div {
+#seed-container {
+  width: 50% !important;
+  height: 50%;
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -64,12 +70,19 @@
 }
 
 .video-setting-input {
-  width: 80%;
+  width: 70%;
   height: 100%;
   border: 0;
   color: var(--primary-color);
   background-color: var(--secondary-color);
+  font-family: monospace;
+  font-size: 1.5rem;
+  padding-left: 1rem;
 }
+#seed-button {
+  width: 30%;
+}
+
 .video-setting-input:focus {
   outline: none;
 }
@@ -88,8 +101,8 @@
   cursor: pointer;
   transition: 0.3s;
 }
-#volume-title{
-  color: var(--secondary-color);;
+#volume-title {
+  color: var(--secondary-color);
   width: 100%;
   height: 50%;
   display: flex;
@@ -133,4 +146,34 @@ input[type="range"]::-moz-range-thumb {
   width: 1rem; /* Set a specific slider handle width */
   height: 1rem; /* Slider handle height */
   cursor: pointer; /* Cursor on hover */
+}
+
+.video-shuffler-description {
+  background-color: var(--secondary-color);
+  padding: 2rem;
+  font-family: monospace;
+  overflow: scroll;
+}
+
+#video-picker {
+  display: flex;
+  flex-direction: row;
+  border: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#selected-video-title {
+  background-color: var(--secondary-color);
+  cursor: default;
+  width: 80%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  display: flex;
+}
+#dropdown-button-video-selector {
+  width: 20%;
+  height: 100%;
 }

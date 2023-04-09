@@ -105,7 +105,24 @@
           id="video-shuffeler-player"
         ></video-shuffeler>
 
-        <div class="right-text"></div>
+        <div class="video-shuffler-description">
+          <h3>Video shuffler</h3>
+          <div class="rules">
+            <p>
+              The project involved creating a video player that shuffles the
+              frames of a video to create a new, unique frame and therefor avoid
+              copyright infringement. This was achieved by breaking the video
+              down into triangle, shuffling them randomly, and then reassembling
+              them into a new frame using webgl and webcodecs. However, after
+              further research ,I discovered that shuffling frames is not a
+              legal method to avoid copyright infringement, and using
+              copyrighted content without permission is against the law.
+              Additionally, technical limitations such as CORS and how h264
+              compression worked made it very hard to continue the project
+            </p>
+          </div>
+        </div>
+
         <div style="width: 100%">
           <div
             style="
@@ -133,48 +150,32 @@
             />
           </div>
           <div id="player-controls">
-            <button id="film">
+            <button id="film" class="player-button">
               <i class="fa-solid fa-download"></i>
-              
             </button>
-            <button id="stop-video" class="control_buttons">
+            <button id="stop-video" class="control-button player-button">
               <i class="fa-solid fa-play"></i>
             </button>
 
-            <div id="volume-control-div">
-              <div id="volume-title">VOLUME</div>
-              <input 
-                type="range"
-                min="0"
-                max="100"
-                value="30"
-                id="volume-range"
-              />
+            <div id="video-picker">
+              <div id="selected-video-title">Curr video</div>
+              <button id="dropdown-button-video-selector" class="player-button">
+                <i class="fa-solid fa-angle-down fa-rotate-180"></i>
+              </button>
             </div>
 
-            <div id="video-settings">
-              <div id="seed-container">
-                <input type="text" class="video-setting-input" id="seed" />
-                <input
-                  type="button"
-                  class="video-setting-input-button"
-                  id="set-seed"
-                  value="&#9998;"
-                />
-              </div>
-              <div id="video-input">
-                <input
-                  type="text"
-                  class="video-setting-input"
-                  id="video-path"
-                />
-                <input
-                  type="button"
-                  class="video-setting-input-button"
-                  id="set-video-path"
-                  value="&#9998;"
-                />
-              </div>
+
+
+            <div id="seed-container">
+              <input
+              id="seed"
+                type="text"
+                placeholder="seed"
+                class="video-setting-input"
+              />
+              <button class="player-button" id="seed-button">
+                <i class="fa-solid fa-seedling"></i>
+              </button>
             </div>
           </div>
         </div>
@@ -202,6 +203,7 @@
           </div>
         </div>
       </article>
+
       <article data-status="left" data-index="3">
         <div class="display" style="background-color: magenta"></div>
         <div class="bottom-text"></div>

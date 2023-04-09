@@ -6,8 +6,8 @@ console.info(`Worker started`);
 // and the modules below. But presently mp4box.js does not use ES6 modules,
 // so we import it as an old-style script and use the dynamic import() to load
 // our modules below.
+
 importScripts('/js/player/third_party/mp4boxjs/mp4box.all.min.js');
-let audioImport = import('/js/player/lib/audio_renderer.js');
 let videoImport = import('/js/player/lib/video_renderer.js');
 
 let filename = null
@@ -26,11 +26,11 @@ let audioReady = null;
 let videoDemuxer = null;
 let videoReady = null;
 let seed = 0;
+let gl = null;
 
 async function importModules() {
-  Promise.all([audioImport, videoImport]).then((modules) => {
-    audioRenderer = new modules[0].AudioRenderer();
-    videoRenderer = new modules[1].VideoRenderer();
+  Promise.all([videoImport]).then((modules) => {
+    videoRenderer = new modules[0].VideoRenderer();
     moduleLoadedResolver();
     moduleLoadedResolver = null;
     console.info('Worker modules imported');
@@ -39,74 +39,54 @@ async function importModules() {
 
 importModules()
 
-function updateMediaTime(mediaTimeSecs, capturedAtHighResTimestamp) {
-
-  lastMediaTimeSecs = mediaTimeSecs;
-  // Translate into Worker's time origin
-  lastMediaTimeCapturePoint = capturedAtHighResTimestamp - performance.timeOrigin;
-
-}
-
-// Estimate current media time using last given time + offset from now()
-function getMediaTimeMicroSeconds() {
-
-  let msecsSinceCapture = performance.now() - lastMediaTimeCapturePoint;
-  return ((lastMediaTimeSecs * 1000) + msecsSinceCapture) * 1000;
-
-}
 
 async function initialize(data) {
   //inputs
-  audioFile = data["audioFile"]
   videoFile = data["videoFile"]
   canvas = data["canvas"]
   //inputs
 
   let demuxerModule = await import('./mp4_pull_demuxer.js');
-
-  audioDemuxer = new demuxerModule.MP4PullDemuxer(audioFile);
-  audioReady = audioRenderer.initialize(audioDemuxer);
   videoDemuxer = new demuxerModule.MP4PullDemuxer(videoFile);
+
+  if (videoDemuxer == undefined) {
+    console.log("invalid path")
+  }
+
   videoReady = videoRenderer.initialize(videoDemuxer, canvas);
 
-
-
-  await Promise.all([audioReady, videoReady]);
+  await Promise.all([videoReady]);
   console.log("initialize-done")
   postMessage({
-    command: 'initialize-done',
-    sampleRate: audioRenderer.sampleRate,
-    channelCount: audioRenderer.channelCount,
-    sharedArrayBuffer: audioRenderer.ringbuffer.buf
+    command: 'initialize-done'
   });
 }
 
+let lastStopTime = 0;
+let lastMediaTime = 0;
+
 async function play(data) {
-  //inputs
-  let mediaTimeSecs = data["mediaTimeSecs"]
-  let mediaTimeCapturedAtHighResTimestamp = data["mediaTimeCapturedAtHighResTimestamp"]
-  //inputs
+
+  let mediaStart = performance.now()
 
   playing = true;
-
-  updateMediaTime(mediaTimeSecs, mediaTimeCapturedAtHighResTimestamp);
-
-  audioRenderer.play();
-
   self.requestAnimationFrame(function renderVideo() {
 
     if (!playing)
       return;
 
-    const mediaTime = getMediaTimeMicroSeconds()
+    let mediaTimeSinceStop = (performance.now() - mediaStart + lastStopTime)
 
-    videoRenderer.render(mediaTime);
+    videoRenderer.render(mediaTimeSinceStop * 1000);
+    
+    lastMediaTime = mediaTimeSinceStop
 
     self.requestAnimationFrame(renderVideo);
 
 
   });
 }
+
 function setCanvas(data) {
   const { width_in_squares, height_in_squares } = data
   client_width = data["client_width"]
@@ -115,14 +95,13 @@ function setCanvas(data) {
 
   const canvasCtx = webglInit(width_in_squares, height_in_squares, seed)
   videoRenderer.setCanvas(canvasCtx, width_in_squares * height_in_squares * 2 * 3)
-}
-async function pause(data) {
-  playing = false;
-  audioRenderer.pause();
+  videoRenderer.render(lastMediaTime * 1000);
 }
 
-async function _updateMediaTime(data) {
-  updateMediaTime(data["mediaTimeSecs"], data["mediaTimeCapturedAtHighResTimestamp"]);
+async function pause(data) {
+  playing = false;
+
+  lastStopTime = lastMediaTime;
 }
 
 
@@ -130,8 +109,8 @@ const events = {
   initialize: initialize,
   play: play,
   pause: pause,
-  updateMediaTime: _updateMediaTime,
-  setCanvas: setCanvas
+  setCanvas: setCanvas,
+  updateWebGlSize: updateWebGlSize
 }
 
 self.addEventListener('message', async function (e) {
@@ -142,7 +121,6 @@ self.addEventListener('message', async function (e) {
   events[e.data.command](e.data)
 
 });
-
 
 
 function verticesCreate(width_in_squares, height_in_squares) {
@@ -207,7 +185,6 @@ const getNextSeed = (_seed) => {
   if (hash < 0) {
     hash *= -1;
   }
-  console.log(hash)
   return hash;
 };
 
@@ -220,7 +197,6 @@ function triangleShuffle(vertices, seed) {
 
       //top
       seed = getNextSeed(seed)
-      console.log(seed, seed % vertices[0].length)
       let destRow = seed % vertices[0].length;
 
       seed = getNextSeed(seed)
@@ -246,13 +222,12 @@ function triangleShuffle(vertices, seed) {
   return verticesShuffled
 }
 
-function webglInit(width_in_squares, height_in_squares, seed) {
-  const gl = canvas.getContext("webgl");
-  /*
-  displayWidth: this.videoTrack.track_width,
-  displayHeight: this.videoTrack.track_height,
-*/
-  console.log(videoDemuxer.videoTrack)
+function updateWebGlSize(data) {
+  if (!gl) { return }
+
+  client_width = data["client_width"]
+  client_height = data["client_height"]
+
   const videoWidth = videoDemuxer.videoTrack.track_width;
   const videoHeight = videoDemuxer.videoTrack.track_height;
 
@@ -263,11 +238,26 @@ function webglInit(width_in_squares, height_in_squares, seed) {
   canvas.width = new_width;
   canvas.height = new_height;
 
-  console.log("new_width, new_height", client_width, client_height)
-
-  console.log("new_width, new_height", new_width, new_height)
   gl.viewport(0, 0, new_width, new_height);
-  gl.clearColor(1.0, 0.8, 0.1, 1.0);
+  videoRenderer.render(lastMediaTime * 1000);
+}
+
+
+function webglInit(width_in_squares, height_in_squares, seed) {
+  gl = canvas.getContext("webgl");
+
+  const videoWidth = videoDemuxer.videoTrack.track_width;
+  const videoHeight = videoDemuxer.videoTrack.track_height;
+
+  const multiplier = Math.min(client_width / videoWidth, client_height / videoHeight);
+
+  const new_width = Math.floor(videoWidth * multiplier);
+  const new_height = Math.floor(videoHeight * multiplier);
+  canvas.width = new_width;
+  canvas.height = new_height;
+
+  gl.viewport(0, 0, new_width, new_height);
+
   gl.clear(gl.COLOR_BUFFER_BIT);
 
   const vertShaderSource = `
@@ -317,7 +307,6 @@ function webglInit(width_in_squares, height_in_squares, seed) {
   const verticesAsArray = new Float32Array(vertices.flat(Infinity))
 
   let shuffledVertices = triangleShuffle(vertices, seed)
-  console.log(shuffledVertices)
   const shuffledVerticesAsArray = new Float32Array(shuffledVertices.flat(Infinity))
 
   const vertexBuffer = gl.createBuffer();
@@ -345,6 +334,5 @@ function webglInit(width_in_squares, height_in_squares, seed) {
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
 
-  //gl.drawArrays(gl.TRIANGLES, 0, vertices.length / 2);
   return gl
 }

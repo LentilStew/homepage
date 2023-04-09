@@ -12,7 +12,8 @@
 }
 
 body {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: monospace;
+    
     margin: 0;
     height: 100vh;
     display: flex;

@@ -27,15 +27,21 @@ document.getElementById("clear").addEventListener("click", () => {
     draw_game()
 })
 
-const game_of_life_art = document.getElementById("game_of_life").parentElement
+const game_of_life_art = document.getElementById("game-of-life-art")
 
 const observer = new MutationObserver(function (mutations) {
     for (let mutation of mutations) {
-        if (!mutation.attributeName === 'data-status')
-            if (mutation.target.getAttribute('data-status') == 'active') { break }
+        if (mutation.attributeName == 'data-status') {
+            if (mutation.target.getAttribute('data-status') == 'active') {
+                if (document.getElementById("stop").status == "off") { toggle_button() }
+                break
+            }
 
-        interval = speed.max
-        break
+            if (document.getElementById("stop").status == "on") { toggle_button() }
+
+            //interval = speed.max
+            break
+        }
     };
 });
 observer.observe(game_of_life_art, { attributes: true })
@@ -177,7 +183,7 @@ let lastFrameTS = 0;
 
 function main_loop() {
     const elapsed = performance.now() - lastFrameTS;
-    
+
     if (elapsed > waitms) {
         lastFrameTS = performance.now();
         run();

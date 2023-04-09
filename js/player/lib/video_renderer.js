@@ -139,7 +139,6 @@ export class VideoRenderer {
 
     const gl = this.canvasCtx
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, frame);
-    console.log(this.numberOfVertices)
     gl.drawArrays(gl.TRIANGLES, 0, this.numberOfVertices);
 
   }
