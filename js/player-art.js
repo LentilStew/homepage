@@ -4,8 +4,6 @@ const player = document.getElementById("video-shuffeler-player")
 
 const toggleButton = document.getElementById("stop-video")
 toggleButton.addEventListener("click", () => {
-    console.log(player.playing)
-
 
     if (player.playing) {
         if (!player.Pause()) { return }
@@ -29,7 +27,6 @@ function handleScrollerChange() {
     const x = Math.ceil(xtriangle.value / 10);
     const y = Math.ceil(ytriangle.value / 10);
 
-    console.log(x, y)
     player.ChangeTriangles(x, y)
 
 }
@@ -41,6 +38,8 @@ ytriangle.addEventListener("change", handleScrollerChange)
 
 const setSeed = document.getElementById("seed-button")
 const setPath = document.getElementById("dropdown-button-video-selector")
+const reloadVideoButton = document.getElementById("reload-video")
+
 
 const seed = document.getElementById("seed")
 const path = document.getElementById("selected-video-title")
@@ -51,16 +50,21 @@ setSeed.addEventListener("click", () => {
 
 let curr_video_index = 0
 inputs = [
-    {name:"csgo clip", path:"/html/in.mp4"},
-    {name:"csgo clip", path:"/html/in.mp4"},
-    {name:"csgo clip", path:"/html/in.mp4"},
-    
+    { name: "csgo clip before", path: "/videos/in.mp4" },
+    { name: "csgo clip seed:s1mple", path: "/videos/csgo.mp4" },
 ]
 setPath.addEventListener("click", () => {
     curr_video_index += 1
     curr_video = inputs[curr_video_index % inputs.length]
     path.textContent = curr_video.name
     player.ChangePath(curr_video.path)
+})
+
+reloadVideoButton.addEventListener("click", () => {
+    curr_video = inputs[curr_video_index % inputs.length]
+    path.textContent = curr_video.name
+    player.ChangePath(curr_video.path)
+
 })
 
 const video_shuffeler_art = document.getElementById("video-shuffeler-art")

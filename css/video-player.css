@@ -177,3 +177,7 @@ input[type="range"]::-moz-range-thumb {
   width: 20%;
   height: 100%;
 }
+
+#reload-video{
+  width: 20%;
+}

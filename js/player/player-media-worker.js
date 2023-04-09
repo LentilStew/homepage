@@ -78,7 +78,7 @@ async function play(data) {
     let mediaTimeSinceStop = (performance.now() - mediaStart + lastStopTime)
 
     videoRenderer.render(mediaTimeSinceStop * 1000);
-    
+
     lastMediaTime = mediaTimeSinceStop
 
     self.requestAnimationFrame(renderVideo);
@@ -162,7 +162,7 @@ function verticesCreate(width_in_squares, height_in_squares) {
       element[1][1][1] -= SQUARE_HEIGHT * y;
       element[1][2][1] -= SQUARE_HEIGHT * y;
     });
-    vertices.push(new_row);
+    vertices.push(...new_row);
   }
   return vertices;
 }
@@ -188,36 +188,43 @@ const getNextSeed = (_seed) => {
   return hash;
 };
 
-function triangleShuffle(vertices, seed) {
+function shuffleList(lst, seed) {
+  let newList = [...lst];
+  for (let index = 0; index < newList.length; index++) {
+    seed = getNextSeed(seed)
+    newIndex = (seed % (index - newList.length)) + index;
 
+    // Swap the elements 
+    [newList[index], newList[newIndex]] = [newList[newIndex], newList[index]]
+  }
+
+  return newList;
+}
+
+function triangleShuffle(vertices, seed) {
   let verticesShuffled = JSON.parse(JSON.stringify(vertices));
 
-  for (let rowIndex = 0; rowIndex < vertices[0].length; rowIndex++) {
-    for (let columnIndex = 0; columnIndex < vertices.length; columnIndex++) {
+  let numberOfSquares = Math.floor(vertices.length / 2)
+  let swaps = []
+  for (let i = numberOfSquares; i < vertices.length; i++) {
+    swaps.push(i);
+  }
 
-      //top
-      seed = getNextSeed(seed)
-      let destRow = seed % vertices[0].length;
-
-      seed = getNextSeed(seed)
-      let destColumn = seed % vertices.length;
-
-      let triangleTmp = verticesShuffled[columnIndex][rowIndex][0];
-      verticesShuffled[columnIndex][rowIndex][0] = verticesShuffled[destColumn][destRow][0];
-      verticesShuffled[destColumn][destRow][0] = triangleTmp;
+  let topShuffle = shuffleList(swaps, seed)
+  for (let i = numberOfSquares; i < vertices.length; i++) { seed = getNextSeed(seed) }
+  let bottomShuffle = shuffleList(swaps, getNextSeed(seed))
 
 
-      //top
-      seed = getNextSeed(seed)
-      destRow = seed % vertices[0].length;
+  for (let triangleIndex = 0; triangleIndex < numberOfSquares; triangleIndex++) {
+    //swap this 2 values
+    let temp = verticesShuffled[triangleIndex][0];
+    verticesShuffled[triangleIndex][0] = verticesShuffled[topShuffle[triangleIndex]][0];
+    verticesShuffled[topShuffle[triangleIndex]][0] = temp;
 
-      seed = getNextSeed(seed)
-      destColumn = seed % vertices.length;
-
-      triangleTmp = verticesShuffled[columnIndex][rowIndex][1];
-      verticesShuffled[columnIndex][rowIndex][1] = verticesShuffled[destColumn][destRow][1];
-      verticesShuffled[destColumn][destRow][1] = triangleTmp;
-    }
+    //swap this 2 values
+    temp = verticesShuffled[triangleIndex][1];
+    verticesShuffled[triangleIndex][1] = verticesShuffled[bottomShuffle[triangleIndex]][1];
+    verticesShuffled[bottomShuffle[triangleIndex]][1] = temp;
   }
   return verticesShuffled
 }
@@ -308,6 +315,7 @@ function webglInit(width_in_squares, height_in_squares, seed) {
 
   let shuffledVertices = triangleShuffle(vertices, seed)
   const shuffledVerticesAsArray = new Float32Array(shuffledVertices.flat(Infinity))
+
 
   const vertexBuffer = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);

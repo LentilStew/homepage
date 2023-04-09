@@ -138,10 +138,8 @@ class videoShuffeler extends HTMLElement {
   }
 
   ChangeTriangles(x, y) {
-    console.log(this.playReady)
     if (this.playReady == false) { return false }
 
-    console.log(this.clientWidth, this.clientHeight)
 
     this.#width_in_squares = x;
     this.#height_in_squares = y;
