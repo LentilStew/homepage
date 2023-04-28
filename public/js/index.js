@@ -29,3 +29,9 @@ function resetText(file) {
 }
 
 document.getElementById("project-description").innerHTML = fileDescriptions["DEFAULT"]
+
+document.querySelectorAll(".file").forEach((file) => {
+    file.addEventListener("click", () => {
+        window.location.href = "/html/projects.html#" + file.innerHTML.trim();;
+    })
+});

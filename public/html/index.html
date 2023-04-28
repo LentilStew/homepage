@@ -25,7 +25,7 @@
       <div class="hompage-row">
         <div class="animate-left mt-5 mx-5" id="project-description"></div>
         <div id="project-directory" class="p-5 animate-right big-hover">
-          <div class="">my-projects/</div>
+          <div style="cursor: default;">my-projects/</div>
           <div class="file big-hover ms-5 d-inline-block">clips-manager.py</div>
           <br />
           <div class="file big-hover ms-5 d-inline-block">transcoder.c</div>
@@ -35,17 +35,6 @@
           <div class="file big-hover ms-5 d-inline-block">game-of-life.js</div>
         </div>
       </div>
-
-      <script>
-        document.querySelectorAll(".file").forEach((file) => {
-          file.addEventListener("click",()=>{
-            window.location.href = "/html/projects.html#" + file.innerHTML.trim();;
-          })
-        });
-        document.getElementById("project-directory").addEventListener("click",()=>{
-          window.location.href = "/html/projects.html"
-        })
-      </script>
 
       <div class="hompage-row">
         <div
