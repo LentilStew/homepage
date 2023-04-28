@@ -1,38 +1,54 @@
-arrows = document.getElementsByClassName('arrow')
-articles = document.getElementById('main').children
+let articles = []
 
-const check_last_arrow = (arrow) =>{
-  let curr_index = parseInt(arrow.parentElement.parentElement.dataset.index);
 
-  let next_index = arrow.id == "right-arrow" ? curr_index - 1 : curr_index + 1;
-  if (next_index < 0 || next_index >= articles.length) {
-    arrow.style.display = "none";
+
+let set_articles_status = () => {
+  for (let article_index = 0; article_index < articles.length; article_index++) {
+    if (article_index < current_article) {
+      articles[article_index].setAttribute('data-status', 'left');
+    }
+    else if (article_index > current_article) {
+      articles[article_index].setAttribute('data-status', 'right');
+    }
+    else {
+      articles[article_index].setAttribute('data-status', 'active');
+    }
   }
 }
 
-for(arrow of arrows){
-  check_last_arrow(arrow)
-}
+articles = document.querySelectorAll('#main article');
+articles[0].querySelector('.left-arrow').style.display = "none";
+articles[articles.length - 1].querySelector('.right-arrow').style.display = "none";
 
-for (let arrow of arrows) {
-  arrow.addEventListener('click', function () {
+const project_name = window.location.hash.substring(1);
+
+let current_article = Array.from(articles).findIndex(article => article.getAttribute('data-project-name') === project_name);
+if(current_article === -1){current_article = 0}
+console.log(current_article)
+
+set_articles_status()
+
+console.log(articles[0])
+console.log(articles[1])
 
 
-    let index = parseInt(arrow.parentElement.parentElement.dataset.index)
 
-    if (arrow.id == "right-arrow" && !(index - 1 < 0) ) {
-      let next_index = index - 1
+document.querySelectorAll('.arrow').forEach(arrow => {
+  arrow.addEventListener("click", () => {
 
-      articles[index].dataset.status = 'left'
-      articles[next_index].dataset.status = 'active'
+    if (arrow.classList.contains('left-arrow')) {
+      console.log("right")
+      articles[current_article].dataset.status = 'right'
+      current_article -= 1
     }
-    else if (arrow.id == "left-arrow" && !(index + 1 == articles.length)) {
+    else {
+      console.log("left")
 
-      let next_index = index + 1
-      
-      articles[index].dataset.status = 'right'
-      articles[next_index].dataset.status = 'active'
+      articles[current_article].dataset.status = 'left'
+      current_article += 1
     }
+
+    articles[current_article].dataset.status = 'active'
   })
-}
+})
 

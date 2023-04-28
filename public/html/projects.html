@@ -19,17 +19,17 @@
   <body>
     <nav class="top-bar">
       <div id="top-left">
-        <a href="./index.html">Home</a>
-        <a href="./about-me.html">About me</a>
+        <a href="./index.html" class="button top-bar-button">Home</a>
+        <a href="./about-me.html" class="button top-bar-button">About me</a>
       </div>
 
       <div id="top-center">
-        <a href="#">
+        <a href="#" class="button top-bar-button">
           <i>
             <i class="fa-brands fa-github-alt"></i>
           </i>
         </a>
-        <a href="#">
+        <a href="#" class="button top-bar-button">
           <i class="fa-brands fa-linkedin-in"> </i>
         </a>
       </div>
@@ -38,7 +38,7 @@
     </nav>
 
     <div id="main">
-      <article id="game-of-life-art" data-status="right" data-index="0">
+      <article id="game-of-life-art" data-project-name="game-of-life.js">
         <table id="game_of_life"></table>
         <div id="description">
           <h3>Rules:</h3>
@@ -90,15 +90,15 @@
         </div>
 
         <div class="nav-tab">
-          <div id="left-arrow" class="arrow">
+          <div class="arrow left-arrow button">
             <i class="fa-solid fa-arrow-left"></i>
           </div>
-          <div id="right-arrow" class="arrow">
+          <div class="arrow right-arrow button">
             <i class="fa-solid fa-arrow-right"></i>
           </div>
         </div>
       </article>
-      <article id="video-shuffeler-art" data-status="active" data-index="1">
+      <article id="video-shuffeler-art" data-project-name="video-shuffler.js">
         <video-shuffeler
           src="../videos/in.mp4"
           id="video-shuffeler-player"
@@ -166,11 +166,9 @@
               </button>
             </div>
 
-
-
             <div id="seed-container">
               <input
-              id="seed"
+                id="seed"
                 type="text"
                 placeholder="seed"
                 class="video-setting-input"
@@ -183,38 +181,74 @@
         </div>
 
         <div class="nav-tab">
-          <div id="left-arrow" class="arrow">
+          <div class="arrow left-arrow button">
             <i class="fa-solid fa-arrow-left"></i>
           </div>
-          <div id="right-arrow" class="arrow">
+          <div class="arrow right-arrow button">
+            <i class="fa-solid fa-arrow-right"></i>
+          </div>
+        </div>
+      </article>
+      <link rel="stylesheet" href="../css/twitch-clip.css" />
+      <article data-project-name="transcoder.c">
+        <div id="twitch-clip-information">
+          <div class="information">
+            <h1>C transcoder</h1>
+            <p>
+              This C project is still under way, the objective is to make a
+              "video procesing server" this means that any app can call it and
+              say to append or filter any video, and also be able to intercept
+              frames. It uses the libav libraries
+            </p>
+          </div>
+        </div>
+        <div id="twitch-clip-output">
+          <div class="information"></div>
+        </div>
+        <div class="bottom-text"></div>
+        <div class="nav-tab">
+          <div class="arrow left-arrow button">
+            <i class="fa-solid fa-arrow-left"></i>
+          </div>
+          <div class="arrow right-arrow button">
             <i class="fa-solid fa-arrow-right"></i>
           </div>
         </div>
       </article>
 
-      <article data-status="left" data-index="2">
-        <div class="display" style="background-color: blue"></div>
-        <div class="bottom-text"></div>
-        <div class="right-text"></div>
-        <div class="nav-tab">
-          <div id="left-arrow" class="arrow">
-            <i class="fa-solid fa-arrow-left"></i>
-          </div>
-          <div id="right-arrow" class="arrow">
-            <i class="fa-solid fa-arrow-right"></i>
+      <link rel="stylesheet" href="../css/twitch-clip.css" />
+      <article data-project-name="clips-manager.py">
+        <div id="twitch-clip-information">
+          <div class="information">
+            <h1>Community Highlights Bot</h1>
+            <p>
+              I wrote a python script that uses the twitch community data
+              analisys done in this
+              <a href="https://twitchatlas.com/">website</a> to create video
+              highlights of the best clips of each community. It uses the twitch
+              api, and generates an ffmpeg command that can be excecuted by
+              other proceses so that it generates multiple videos that can be
+              uploaded to a youtube page, thing I was going to do but ended up
+              not doing because automating the upload to youtube process was too
+              tidius and unreliable because I couldn't get the official youtube
+              api, and also it infringes copyright laws, which is ilegal, and I
+              would definitly not want to break
+            </p>
           </div>
         </div>
-      </article>
-
-      <article data-status="left" data-index="3">
-        <div class="display" style="background-color: magenta"></div>
+        <div id="twitch-clip-output">
+          <div class="information">
+            <a href="https://lentilstew-clip-manager-main-8ygncl.streamlit.app/"
+              >Here is the website</a
+            >
+          </div>
+        </div>
         <div class="bottom-text"></div>
-        <div class="right-text"></div>
         <div class="nav-tab">
-          <div id="left-arrow" class="arrow">
+          <div class="arrow left-arrow button">
             <i class="fa-solid fa-arrow-left"></i>
           </div>
-          <div id="right-arrow" class="arrow">
+          <div class="arrow right-arrow button">
             <i class="fa-solid fa-arrow-right"></i>
           </div>
         </div>
