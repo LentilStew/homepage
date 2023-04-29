@@ -1,0 +1,58 @@
+.animate-left {
+  opacity: 0;
+}
+
+.animate-left.active {
+  animation: animateLeft 1s ease-out;
+  opacity: 1;
+}
+
+@keyframes animateLeft {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.animate-right {
+  opacity: 0;
+}
+
+.animate-right.active {
+  animation: animateRight 1s ease-out;
+  opacity: 1;
+}
+
+@keyframes animateRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+
+.big-hover{
+  transition: transform 0.2s ease-in-out;
+}
+
+.big-hover:hover {
+  transform: scale(1.1);
+}
+
+.button{
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+}
+
+.button:hover{
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+  transition: 0.3s;
+}

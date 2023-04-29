@@ -1,0 +1,39 @@
+#twitch-clip-art {
+  grid-template-columns: 3fr 1fr !important;
+  grid-template-rows: 7fr 3fr !important;
+}
+
+#twitch-clip-information {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  padding: 3.25rem;
+}
+#twitch-clip-output {
+  background-color: var(--secondary-color);
+}
+.information {
+  font-size: 1.15rem;
+  border: 1px solid var(--secondary-color);
+  border-radius: 0.5rem;
+  width: 100%;
+  padding-top: 2rem;
+  padding-left: 3.25rem;
+  padding-right: 3.25rem;
+
+  padding-bottom: 2rem;
+}
+
+/* Styles for the technologies container */
+#technologies-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+/* Styles for the logos */
+.logo {
+  height: 3rem;
+  width: auto;
+}

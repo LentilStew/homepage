@@ -18,27 +18,19 @@
 
   <body>
     <nav class="top-bar">
-      <div id="top-left">
-        <a href="./index.html">Home</a>
-        <a href="./about-me.html">About me</a>
-      </div>
+      <a href="./index.html" class="button top-bar-button">Home</a>
+      <a href="./about-me.html" class="button top-bar-button">About me</a>
 
-      <div id="top-center">
-        <a href="#">
-          <i>
-            <i class="fa-brands fa-github-alt"></i>
-          </i>
-        </a>
-        <a href="#">
-          <i class="fa-brands fa-linkedin-in"> </i>
-        </a>
-      </div>
-
-      <div id="top-right"></div>
+      <a href="https://github.com/LentilStew" class="button top-bar-button">
+        <i class="fa-brands fa-github-alt"></i>
+      </a>
+      <a href="#" class="button top-bar-button">
+        <i class="fa-brands fa-linkedin-in"> </i>
+      </a>
     </nav>
 
     <div id="main">
-      <article id="game-of-life-art" data-status="right" data-index="0">
+      <article id="game-of-life-art" data-project-name="game-of-life.js">
         <table id="game_of_life"></table>
         <div id="description">
           <h3>Rules:</h3>
@@ -90,15 +82,15 @@
         </div>
 
         <div class="nav-tab">
-          <div id="left-arrow" class="arrow">
+          <div class="arrow left-arrow button">
             <i class="fa-solid fa-arrow-left"></i>
           </div>
-          <div id="right-arrow" class="arrow">
+          <div class="arrow right-arrow button">
             <i class="fa-solid fa-arrow-right"></i>
           </div>
         </div>
       </article>
-      <article id="video-shuffeler-art" data-status="active" data-index="1">
+      <article id="video-shuffeler-art" data-project-name="video-shuffler.js">
         <video-shuffeler
           src="../videos/in.mp4"
           id="video-shuffeler-player"
@@ -122,17 +114,9 @@
           </div>
         </div>
 
-        <div style="width: 100%">
-          <div
-            style="
-              background-color: blue;
-              height: 10%;
-              display: flex;
-              flex-direction: row;
-            "
-          >
+        <div style="width: 100%; display:flex; flex-direction: column; ">
+          <div style="height: fit-content; display: flex; flex-direction: row">
             <input
-              class="min-range"
               type="range"
               min="1"
               max="100"
@@ -140,7 +124,6 @@
               id="xtriangle"
             />
             <input
-              class="min-range"
               type="range"
               min="1"
               max="100"
@@ -166,11 +149,9 @@
               </button>
             </div>
 
-
-
             <div id="seed-container">
               <input
-              id="seed"
+                id="seed"
                 type="text"
                 placeholder="seed"
                 class="video-setting-input"
@@ -183,38 +164,113 @@
         </div>
 
         <div class="nav-tab">
-          <div id="left-arrow" class="arrow">
+          <div class="arrow left-arrow button">
             <i class="fa-solid fa-arrow-left"></i>
           </div>
-          <div id="right-arrow" class="arrow">
+          <div class="arrow right-arrow button">
             <i class="fa-solid fa-arrow-right"></i>
           </div>
         </div>
       </article>
 
-      <article data-status="left" data-index="2">
-        <div class="display" style="background-color: blue"></div>
-        <div class="bottom-text"></div>
-        <div class="right-text"></div>
+      <link rel="stylesheet" href="../css/twitch-clip.css" />
+      <article data-project-name="clips-manager.py">
+        <div id="twitch-clip-information">
+          <div class="information">
+            <h1>Community Highlights Bot</h1>
+            <p>
+              I wrote a python script that uses the twitch community data
+              analisys done in this
+              <a href="https://twitchatlas.com/">website</a> to create video
+              highlights of the best clips of each community. It generates
+              ffmpeg commands and youtube titles and descriptions.
+            </p>
+          </div>
+        </div>
+        <div>
+          <a
+            style="margin-top: 3rem"
+            href="https://github.com/LentilStew/clip-manager"
+            class="button project-links"
+            >GitHub</a
+          >
+          <p style="color: white">
+            Video generation doesn't work since the server that is running this
+            app doesn't have ffmpeg installed you can only look at videos
+            already made, Example in 2023/04/26, if you want to create your own,
+            clone the repository
+          </p>
+          <a
+            href="https://lentilstew-clip-manager-main-8ygncl.streamlit.app/"
+            class="button project-links"
+            >Website</a
+          >
+        </div>
+        <div>
+          <h2 style="margin: 2rem; margin-bottom: 0; color: white">
+            Technologies used:
+          </h2>
+          <div id="technologies-container">
+            <img
+              class="logo"
+              src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg"
+              alt=""
+            />
+            <img
+              class="logo"
+              src="https://firebase.google.com/static/downloads/brand-guidelines/SVG/logo-logomark.svg"
+              alt=""
+              srcset=""
+            />
+
+            <svg
+              class="logo"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 48 48"
+            >
+              <path
+                fill="#388e3c"
+                d="M39.5,42h-9c-1,0-1.9-0.6-2.3-1.5c-0.4-0.9-0.2-2,0.5-2.7l8.3-8.3v-3.9L21.3,41.3 c-0.5,0.5-1.1,0.7-1.8,0.7h-11c-1,0-1.9-0.6-2.3-1.5c-0.4-0.9-0.2-2,0.5-2.7L33.5,11h-3.9L10.3,30.3c-0.7,0.7-1.8,0.9-2.7,0.5 C6.6,30.4,6,29.5,6,28.5v-11c0-0.7,0.3-1.3,0.7-1.8l4.7-4.7h-3C7.1,11,6,9.9,6,8.5S7.1,6,8.5,6h9c1,0,1.9,0.6,2.3,1.5 c0.4,0.9,0.2,2-0.5,2.7L11,18.5v3.9L26.7,6.7C27.2,6.3,27.8,6,28.5,6h11c1,0,1.9,0.6,2.3,1.5c0.4,0.9,0.2,2-0.5,2.7L14.5,37h3.9 l19.3-19.3c0.7-0.7,1.8-0.9,2.7-0.5c0.9,0.4,1.5,1.3,1.5,2.3v11c0,0.7-0.3,1.3-0.7,1.8L36.5,37h3c1.4,0,2.5,1.1,2.5,2.5 S40.9,42,39.5,42z"
+              />
+            </svg>
+          </div>
+        </div>
         <div class="nav-tab">
-          <div id="left-arrow" class="arrow">
+          <div class="arrow left-arrow button">
             <i class="fa-solid fa-arrow-left"></i>
           </div>
-          <div id="right-arrow" class="arrow">
+          <div class="arrow right-arrow button">
             <i class="fa-solid fa-arrow-right"></i>
           </div>
         </div>
       </article>
+      <article data-project-name="transcoder.c">
+        <div id="twitch-clip-information">
+          <div class="information">
+            <h1>Transcoder</h1>
+            <p>
+              This C project is currently under development, my objective is to
+              be able to stream to rtmp, and make any app be able to comunicate
+              with it, like a server, and be able to append videos, add filters,
+              intercept frames and much more.
+            </p>
+          </div>
+        </div>
+        <div>
+          <a
+            style="margin-top: 3rem"
+            class="button project-links"
+            href="https://github.com/LentilStew/trancoder"
+            >GitHub</a
+          >
+        </div>
+        <div></div>
 
-      <article data-status="left" data-index="3">
-        <div class="display" style="background-color: magenta"></div>
-        <div class="bottom-text"></div>
-        <div class="right-text"></div>
         <div class="nav-tab">
-          <div id="left-arrow" class="arrow">
+          <div class="arrow left-arrow button">
             <i class="fa-solid fa-arrow-left"></i>
           </div>
-          <div id="right-arrow" class="arrow">
+          <div class="arrow right-arrow button">
             <i class="fa-solid fa-arrow-right"></i>
           </div>
         </div>

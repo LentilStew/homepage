@@ -127,25 +127,24 @@ input[type="range"] {
   border: var(--primary-color);
 }
 
-/* Mouse-over effects */
-input[type="range"] :hover {
-  opacity: 1; /* Fully shown on mouse-over */
-}
 
-/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+input[type="range"] {
+  height: 100%;
+}
 input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none; /* Override default look */
+  -webkit-appearance: none; 
   appearance: none;
-  width: 1rem; /* Set a specific slider handle width */
-  height: 1rem; /* Slider handle height */
-  background: black;
-  cursor: pointer; /* Cursor on hover */
+  width: 1rem; 
+  height: 1rem; 
+  border-radius: 1rem;
+  background: var(--primary-color);
+  cursor: pointer; 
+  
 }
 
 input[type="range"]::-moz-range-thumb {
-  width: 1rem; /* Set a specific slider handle width */
-  height: 1rem; /* Slider handle height */
-  cursor: pointer; /* Cursor on hover */
+  background: black;
+
 }
 
 .video-shuffler-description {
@@ -178,6 +177,6 @@ input[type="range"]::-moz-range-thumb {
   height: 100%;
 }
 
-#reload-video{
+#reload-video {
   width: 20%;
 }

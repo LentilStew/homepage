@@ -1,5 +1,38 @@
-body{
-    background-color: #000;
-    color: #fff;
-    margin: 0;
+:root {
+  --primary-color: #060a1a;
+  --opaqueprimary-color: rgba(6, 10, 26, 0.8);
+  --secondary-color: white;
+  --opacesecondary-color: rgba(255, 255, 255, 0.8);
+  --border-color: white;
+}
+
+body {
+  overflow-x: hidden;
+  font-family: monospace;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+}
+
+.project-description {
+  width: 55%;
+  text-align: center;
+  font-size: xx-large;
+}
+
+.big-button {
+  width: 45%;
+  background-color: white;
+  color: black;
+  cursor: pointer;
+}
+
+.hompage-row {
+  height: 60vh;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.file {
+  cursor: pointer;
 }
