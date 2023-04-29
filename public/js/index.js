@@ -19,16 +19,16 @@ function setText(file) {
     file.style.backgroundColor = "#060a1a"
     file.style.color = "white"
     console.log(file.innerHTML.trim())
-    document.getElementById("project-description").innerHTML = fileDescriptions[file.innerHTML.trim()]
+    document.getElementById("folder").innerHTML = fileDescriptions[file.innerHTML.trim()]
 }
 function resetText(file) {
     file.style.backgroundColor = ""
     file.style.color = "black"
 
-    document.getElementById("project-description").innerHTML = fileDescriptions["DEFAULT"]
+    document.getElementById("folder").innerHTML = fileDescriptions["DEFAULT"]
 }
 
-document.getElementById("project-description").innerHTML = fileDescriptions["DEFAULT"]
+document.getElementById("folder").innerHTML = fileDescriptions["DEFAULT"]
 
 document.querySelectorAll(".file").forEach((file) => {
     file.addEventListener("click", () => {
