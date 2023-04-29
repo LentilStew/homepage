@@ -40,7 +40,7 @@
 }
 
 .rules>p {
-    font-size: 1rem;
+    font-size: .75rem;
     background: var(--primary-color);
     color: white;
     margin: 0;
