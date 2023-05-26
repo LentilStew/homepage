@@ -1,7 +1,7 @@
 let articles = []
 
-window.addEventListener('load', function() {
-  setTimeout(function() {
+window.addEventListener('load', function () {
+  setTimeout(function () {
     document.getElementById('loading-screen').style.display = 'none';
   }, 1000); // 3000 milliseconds = 3 seconds
 });
@@ -10,7 +10,6 @@ let set_articles_status = () => {
   for (let article_index = 0; article_index < articles.length; article_index++) {
     before = articles[article_index].style.transition;
 
-    articles[article_index].style.transition = "transform 0.00001s";
 
     if (article_index < current_article) {
       articles[article_index].setAttribute('data-status', 'left');
@@ -22,9 +21,6 @@ let set_articles_status = () => {
       articles[article_index].setAttribute('data-status', 'active');
     }
 
-    articles[article_index].addEventListener('transitionend', function() {
-      articles[article_index].style.transition = "transform 2s";
-  });
 
   }
 
