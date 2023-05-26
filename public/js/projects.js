@@ -1,9 +1,17 @@
 let articles = []
 
-
+window.addEventListener('load', function() {
+  setTimeout(function() {
+    document.getElementById('loading-screen').style.display = 'none';
+  }, 1000); // 3000 milliseconds = 3 seconds
+});
 
 let set_articles_status = () => {
   for (let article_index = 0; article_index < articles.length; article_index++) {
+    before = articles[article_index].style.transition;
+
+    articles[article_index].style.transition = "transform 0.00001s";
+
     if (article_index < current_article) {
       articles[article_index].setAttribute('data-status', 'left');
     }
@@ -13,7 +21,13 @@ let set_articles_status = () => {
     else {
       articles[article_index].setAttribute('data-status', 'active');
     }
+
+    articles[article_index].addEventListener('transitionend', function() {
+      articles[article_index].style.transition = "transform 2s";
+  });
+
   }
+
 }
 
 articles = document.querySelectorAll('#main article');
@@ -23,7 +37,7 @@ articles[articles.length - 1].querySelector('.right-arrow').style.display = "non
 const project_name = window.location.hash.substring(1);
 
 let current_article = Array.from(articles).findIndex(article => article.getAttribute('data-project-name') === project_name);
-if(current_article === -1){current_article = 0}
+if (current_article === -1) { current_article = 0 }
 console.log(current_article)
 
 set_articles_status()
