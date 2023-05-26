@@ -4,8 +4,8 @@
 
 #game-of-life-art {
     background-color: var(--primary-color);
-    grid-template-columns: 3fr 1fr !important;
-    grid-template-rows: 7fr 1fr !important;
+    grid-template-columns: 1fr !important;
+    grid-template-rows: 1fr 1fr !important;
 }
 
 #game-of-life-art>* {
@@ -96,3 +96,21 @@
     cursor: pointer;
     transition: 0.3s;
 }
+
+@media screen and (min-width: 800px) {
+    #game-of-life-art {
+        background-color: var(--primary-color);
+        grid-template-columns: 3fr 1fr !important;
+        grid-template-rows: 7fr 1fr !important;
+    }
+    
+}
+@media screen and (max-width: 800px) {
+    #game_of_life{
+        display: none;
+    }
+    #bottom-left{
+        display:none;
+    }
+}
+

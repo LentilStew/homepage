@@ -8,6 +8,8 @@
       integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
       crossorigin="anonymous"
     />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
@@ -18,25 +20,19 @@
     <title>My Webpage</title>
   </head>
   <body>
-    <div style="height: 40vh">
-      <h1 class="m-5 p-5">Hi! I'm Gabriel</h1>
-    </div>
-    <div>
+      <h1 class="index-title">Hi! I'm Gabriel</h1>
       <div class="hompage-row">
-        <div class=" mt-5 mx-5 project-description" id="folder"></div>
+        <div class="project-description" id="folder"></div>
         <div class="p-5 big-button big-hover" style="cursor: default;">
           <div style="cursor: default;">my-projects/</div>
-          <div class="file big-hover ms-5 d-inline-block">clips-manager.py</div>
-          <br />
-          <div class="file big-hover ms-5 d-inline-block">transcoder.c</div>
-          <br />
-          <div class="file big-hover ms-5 d-inline-block">video-shuffler.js</div>
-          <br />
-          <div class="file big-hover ms-5 d-inline-block">game-of-life.js</div>
+          <div class="file big-hover">clips-manager.py</div>
+          <div class="file big-hover">transcoder.c</div>
+          <div class="file big-hover">video-shuffler.js</div>
+          <div class="file big-hover">game-of-life.js</div>
         </div>
       </div>
 
-      <div class="hompage-row">
+      <div class="hompage-row about-me">
         <div
           onclick="window.location.href = './about-me.html';"
           class="p-5 big-hover big-button "
@@ -49,7 +45,7 @@
       </div>
 
       <div class="hompage-row">
-        <div class=" mt-5 mx-5 project-description" ></div>
+        <div class=" mt-5 mx-5 project-description" >Let's connect</div>
         <div
           onclick="window.location.href = './contact.html';"
           class="p-5 big-hover big-button"

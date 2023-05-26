@@ -1,7 +1,4 @@
-#twitch-clip-art {
-  grid-template-columns: 3fr 1fr !important;
-  grid-template-rows: 7fr 3fr !important;
-}
+
 
 #twitch-clip-information {
   background-color: var(--primary-color);
@@ -19,7 +16,6 @@
   padding-top: 2rem;
   padding-left: 3.25rem;
   padding-right: 3.25rem;
-
   padding-bottom: 2rem;
 }
 
@@ -36,4 +32,31 @@
 .logo {
   height: 3rem;
   width: auto;
+}
+
+.twitch-links{
+  margin-top: 3rem;
+}
+
+@media screen and (max-width: 800px) {
+  #twitch-clip-art {
+    grid-template-columns:  1fr !important;
+    grid-template-rows: 1fr 1fr 1fr 1fr !important;
+  }
+  .information{
+    border: none;
+    padding-top: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+  }
+  #twitch-clip-information{
+    padding:1rem;
+  }
+  .twitch-links{
+    margin-top: 0;
+  }
+  .twitch-technologies{
+    display: none;
+  }
 }

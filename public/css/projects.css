@@ -151,3 +151,14 @@ body {
   font-size: 40px;
   color: #000; /* You can set the color to your preference */
 }
+
+@media screen and (max-width: 800px) {
+  #transcoder-article{
+      grid-template-columns: 1fr !important;
+      grid-template-rows: 1fr 1fr 1fr 1fr !important;
+  }
+
+  .bottom-left-transcoder{
+    display: none;
+  }
+}
