@@ -8,7 +8,6 @@ window.addEventListener('load', function () {
 
 let set_articles_status = () => {
   for (let article_index = 0; article_index < articles.length; article_index++) {
-    before = articles[article_index].style.transition;
 
 
     if (article_index < current_article) {
