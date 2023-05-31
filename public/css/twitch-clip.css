@@ -1,5 +1,3 @@
-
-
 #twitch-clip-information {
   background-color: var(--primary-color);
   color: var(--secondary-color);
@@ -10,11 +8,8 @@
 }
 .information {
   font-size: 1.15rem;
-  border: 1px solid var(--secondary-color);
   border-radius: 0.5rem;
   width: 100%;
-  padding-top: 2rem;
-  padding-left: 3.25rem;
   padding-right: 3.25rem;
   padding-bottom: 2rem;
 }
@@ -34,29 +29,48 @@
   width: auto;
 }
 
-.twitch-links{
+.twitch-links {
   margin-top: 3rem;
 }
 
 @media screen and (max-width: 800px) {
   #twitch-clip-art {
-    grid-template-columns:  1fr !important;
-    grid-template-rows: 1fr 1fr 1fr 1fr !important;
+    grid-template-columns: 1fr !important;
+    grid-template-rows: 2fr 1fr 1fr !important;
   }
-  .information{
+  .information {
     border: none;
     padding-top: 0;
     padding-left: 0;
     padding-right: 0;
     padding-bottom: 0;
+    height: 100%;
+    overflow: auto;
   }
-  #twitch-clip-information{
-    padding:1rem;
+  .information > p{
+    margin-bottom: 0;
   }
-  .twitch-links{
+  #twitch-clip-information {
+    padding: 1rem;
+    height: 100%;
+    overflow:auto;
+    padding-bottom: 0;
+    padding-top: 0;
+
+  }
+  .twitch-links {
+    height: 100%;
     margin-top: 0;
+    overflow:auto;
+
+    display:flex;
+    flex-direction: row;
   }
-  .twitch-technologies{
+  .project-links{
+    width: 100%;
+    height: 100%;
+  }
+  .twitch-technologies {
     display: none;
   }
 }

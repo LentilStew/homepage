@@ -19,6 +19,7 @@ body {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  
 }
 
 #top-left {
@@ -155,7 +156,7 @@ body {
 @media screen and (max-width: 800px) {
   #transcoder-article{
       grid-template-columns: 1fr !important;
-      grid-template-rows: 1fr 1fr 1fr 1fr !important;
+      grid-template-rows: 2fr 1fr 1fr  !important;
   }
 
   .bottom-left-transcoder{
