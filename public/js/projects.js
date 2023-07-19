@@ -20,6 +20,7 @@ let set_articles_status = () => {
       articles[article_index].setAttribute('data-status', 'active');
     }
 
+    
 
   }
 
